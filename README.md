@@ -1,32 +1,57 @@
-# React + TypeScript + Vite
+# FocusList 🎯
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+FocusList is a production-quality, frontend-only To-Do web application built for speed, focus, and modern productivity. It operates completely in the browser, persisting all data using LocalStorage.
 
-Currently, two official plugins are available:
+![FocusList Preview](./public/bg-theme.png)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## ✨ Key Features
 
-## React Compiler
+- 📝 **Task Management**: Create tasks with High, Medium, or Low priority.
+- ✏️ **Inline Card Editing**: Quick inline editing with `Enter` (Save) and `Escape` (Cancel) keyboard shortcuts.
+- 🗑️ **Deletion Safety**: Custom modal dialog prevents accidental deletions.
+- 🎨 **Dark & Light Mode**: Persistent theme toggle with OS preference auto-detection.
+- 🔍 **Real-time Search & Multi-Filters**: Instant title search combined with status (*All*, *Active*, *Completed*) and priority filters.
+- 📊 **Master Statistics**: Live count of Total, Completed, and Pending tasks.
+- 💾 **LocalStorage Persistence**: Safe JSON parsing and defensive schema validation.
+- 📱 **Responsive & Accessible**: Touch-friendly controls, minimum 44px targets, zero horizontal overflow, and WCAG accessibility standards.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🛠️ Tech Stack
 
-## Expanding the Oxlint configuration
+- **Framework**: React 19 + TypeScript
+- **Bundler**: Vite
+- **Styling**: Tailwind CSS v4
+- **Icons**: Lucide React
+- **State & Persistence**: React Hooks + LocalStorage API
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+## 🚀 Getting Started
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+### Prerequisites
+- Node.js (v18+ recommended)
+- npm
+
+### Installation & Local Run
+
+```bash
+# Clone the repository
+git clone <repository-url>
+
+# Navigate to project directory
+cd focus-list
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+### Build for Production
+
+```bash
+npm run build
+```
+
+The production assets will be output to the `dist/` directory, ready to be hosted on Vercel, Netlify, or GitHub Pages.
+
+---
+Created with FocusList • Your daily productivity companion
