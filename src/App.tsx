@@ -1,20 +1,25 @@
 import { useState, useEffect, useMemo } from 'react';
 import type { Task, Priority, StatusFilter, PriorityFilter, TaskStats, Theme } from './types/task';
+import type { User } from './types/user';
 import {
   loadTasksFromStorage,
   saveTasksToStorage,
   loadThemeFromStorage,
   saveThemeToStorage,
 } from './utils/storage';
+import { loadUserSession, logoutUserSession } from './utils/auth';
 import { Header } from './components/Header';
 import { Stats } from './components/Stats';
 import { TaskForm } from './components/TaskForm';
 import { SearchAndFilters } from './components/SearchAndFilters';
 import { TaskList } from './components/TaskList';
 import { ConfirmModal } from './components/ConfirmModal';
+import { AuthModal } from './components/AuthModal';
 import { Footer } from './components/Footer';
 
 export function App() {
+  const [user, setUser] = useState<User | null>(() => loadUserSession());
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState<boolean>(() => !loadUserSession());
   const [tasks, setTasks] = useState<Task[]>(() => loadTasksFromStorage());
   const [theme, setTheme] = useState<Theme>(() => loadThemeFromStorage());
   const [searchQuery, setSearchQuery] = useState('');
@@ -40,6 +45,18 @@ export function App() {
 
   const handleToggleTheme = () => {
     setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
+  };
+
+  // Auth Handlers
+  const handleAuthSuccess = (authenticatedUser: User) => {
+    setUser(authenticatedUser);
+    setIsAuthModalOpen(false);
+  };
+
+  const handleLogout = () => {
+    logoutUserSession();
+    setUser(null);
+    setIsAuthModalOpen(true);
   };
 
   // Master Statistics derived strictly from master dataset
@@ -127,8 +144,14 @@ export function App() {
     <div className="min-h-screen flex flex-col font-sans transition-colors duration-200">
       {/* Container with max-width ~1100px */}
       <main className="flex-1 w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
-        {/* App Header with Theme Toggle & Avatar */}
-        <Header theme={theme} onToggleTheme={handleToggleTheme} />
+        {/* App Header with Personal Greeting & Auth Controls */}
+        <Header
+          theme={theme}
+          user={user}
+          onToggleTheme={handleToggleTheme}
+          onLogout={handleLogout}
+          onOpenAuth={() => setIsAuthModalOpen(true)}
+        />
 
         {/* Master Statistics Dashboard */}
         <Stats stats={stats} />
@@ -160,6 +183,13 @@ export function App() {
 
       {/* Footer */}
       <Footer />
+
+      {/* Auth Modal (Create Account / Sign In matching screenshot design) */}
+      <AuthModal
+        isOpen={isAuthModalOpen}
+        onAuthSuccess={handleAuthSuccess}
+        onClose={user ? () => setIsAuthModalOpen(false) : undefined}
+      />
 
       {/* Delete Confirmation Modal */}
       <ConfirmModal
