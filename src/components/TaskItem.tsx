@@ -200,10 +200,10 @@ export const TaskItem: React.FC<TaskItemProps> = ({
 
             <div className="min-w-0 flex-1 overflow-hidden">
               <p
-                className={`text-sm font-semibold leading-snug break-words transition-all ${
+                className={`text-base font-extrabold leading-snug break-words transition-all ${
                   task.completed
                     ? 'line-through text-slate-400 dark:text-slate-500 font-normal'
-                    : 'text-slate-900 dark:text-slate-100'
+                    : 'text-red-700 dark:text-red-400 font-black tracking-wide'
                 }`}
               >
                 {task.title}
