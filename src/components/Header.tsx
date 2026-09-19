@@ -48,7 +48,7 @@ export const Header: React.FC<HeaderProps> = ({
               )}
             </div>
             <p className="text-slate-500 dark:text-slate-400 text-xs sm:text-sm font-medium mt-0.5">
-              {user ? `${user.email} • Plan your day. Focus on what matters.` : 'Plan your day. Focus on what matters.'}
+              Plan your day. Focus on what matters.
             </p>
           </div>
         </div>
